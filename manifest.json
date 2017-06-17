@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "Window Manager Name TBD",
+    "version": "0.1",
+
+    "description": "Easily drag and drop tabs between windows in bulk",
+    "homepage_url": "TBD",
+    "icons": {
+        "48": "icons/beasts-48.png"
+    },
+
+    "permissions": [],
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "browser_action": {
+        "default_icon": "icons/beasts-32.png",
+        "default_title": "Window Manager",
+        "default_popup": "popup/choose_beast.html"
+    },
+
+    "web_accessible_resources": []
+}
