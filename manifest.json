@@ -4,12 +4,17 @@
     "version": "0.1",
 
     "description": "Easily drag and drop tabs between windows in bulk",
-    "homepage_url": "TBD",
+    "homepage_url": "https://willtoher.com",
     "icons": {
         "48": "icons/beasts-48.png"
     },
 
-    "permissions": [],
+    "permissions": [
+        "tabs",
+        "clipboardWrite",
+        "contextualIdentities",
+        "sessions"
+    ],
 
     "background": {
         "scripts": ["background.js"]
@@ -17,9 +22,6 @@
 
     "browser_action": {
         "default_icon": "icons/beasts-32.png",
-        "default_title": "Window Manager",
-        "default_popup": "popup/choose_beast.html"
-    },
-
-    "web_accessible_resources": []
+        "default_title": "WINDOW MANAGER NAME TBD"
+    }
 }
