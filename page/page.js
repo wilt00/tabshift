@@ -10,8 +10,11 @@ function generateListItem(tab, parent) {
 
 
     item.appendChild(img);
-   
-    item.appendChild(document.createTextNode(tab.title));
+    
+    titleText = document.createElement("span");
+    titleText.textContent = tab.title
+    //item.appendChild(document.createTextNode(tab.title));
+    item.appendChild(titleText);
 
     parent.appendChild(item);
 }
