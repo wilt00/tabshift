@@ -1,41 +1,63 @@
 
+// GLOBAL STATE
+var windowNumber = 1;
+
+// Drag selection example: https://codepen.io/netgfx/pen/twAfG
+// Explanation: http://nightlycoding.com/index.php/2014/02/click-and-drag-multi-selection-rectangle-with-javascript/
+
+// Returns reference to div where given tab should go
+// If this div doesn't exist, creates it and appends it to "windowsContainer"
+// Parent div Id is of the form "window-[window Id]"
+function getParent(tab) {
+    var parent = document.getElementById("window-" + tab.windowId);
+    if (parent === null) {
+        parent = document.createElement("div");
+        parent.id = "window-" + tab.windowId;
+        parent.classList.add("window");
+        document.getElementById("windowsContainer").appendChild(parent);
+
+        var title = document.createElement("div");
+        title.classList.add("windowTitle");
+        var titleText = document.createElement("h2");
+        titleText.textContent = "Window " + windowNumber;
+        title.appendChild(titleText);
+        parent.appendChild(title);
+        windowNumber++;
+    }
+    return parent;
+}
+
+
+// TODO: move creation logic from getParent here
+function createWindowDiv(windowId) {}
+
+
 function generateListItem(tab, parent) {
-    var item = document.createElement("li");
+    var item = document.createElement("div");
     item.classList.add("tabItem");
 
     var img = document.createElement("img");
     img.src = tab.favIconUrl;
     img.width = "32";
     img.height = "32";
-
-
     item.appendChild(img);
     
-    titleText = document.createElement("span");
-    titleText.textContent = tab.title
-    //item.appendChild(document.createTextNode(tab.title));
-    item.appendChild(titleText);
+    var itemText = document.createElement("span");
+    itemText.classList.add("itemText");
+    itemText.textContent = tab.title;
+    item.appendChild(itemText);
 
     parent.appendChild(item);
 }
 
+
 function addTabs(tabs) {
-    var tabsListNode = document.getElementById("tabList");
-
-    var tabTitleText = document.createTextNode("List of Tabs:");
-    tabsListNode.appendChild(tabTitleText);
-
     for (let tab of tabs) {
-        //console.log(tab.title)
-
-        //var tabListItem = document.createElement("li");
-        //tabListItem.innerText = tab.title;
-
-        //tabsListNode.appendChild(tabListItem);
-
-        generateListItem(tab, tabsListNode);
+        var parent = getParent(tab);
+        generateListItem(tab, parent);
     }
 }
+
 
 function onError(error) {
     console.log(`Error: ${error}`);
@@ -43,8 +65,8 @@ function onError(error) {
 
 
 window.onload = function () {
-    var currWindowTabs = browser.tabs.query({currentWindow: true});
-    currWindowTabs.then(addTabs, onError)
+    var currWindowTabs = browser.tabs.query({});
+    currWindowTabs.then(addTabs, onError);
 
     console.log("Done")
 }

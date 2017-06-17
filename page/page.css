@@ -1,5 +1,16 @@
-.classList {
-    line-height: 1.5;
+.tabItem {
     display: flex;
     align-items: center;
+    padding: 10px;
+
+}
+
+.windowsContainer {}
+
+.window {}
+
+.windowTitle{}
+
+.itemText {
+    padding-left: 5px;
 }
