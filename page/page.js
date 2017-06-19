@@ -38,6 +38,12 @@ function generateListItem(tab, parent) {
 
     var img = document.createElement("img");
     img.src = tab.favIconUrl;
+    console.log(img.src);
+    if (img.src.endsWith("undefined")) {
+        // TODO: Replace temp art
+        // Credit: https://openclipart.org/detail/194751/globe
+        img.src = "globe-300px.png";
+    }
     img.width = "32";
     img.height = "32";
     item.appendChild(img);
