@@ -14,3 +14,14 @@
 .itemText {
     padding-left: 5px;
 }
+
+.tabCheckbox {
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.tabFavicon {
+    margin-left: 10px;
+    margin-right: 10px;
+}

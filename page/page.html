@@ -8,12 +8,15 @@
     </head>
 
     <body>
-        <div><p> Hello world! </p></div>
-
-        <div id="windowsContainer">
-            
+        <form>
+        <div id="buttonsContainer">
+            <button type="button" id="moveSelectedBtn">Move Selected Tabs To:</button>
+            <select id="windowPicker" name="window">
+                <option value="new">New Window</option>
+            </select>
         </div>
-
+        <div id="windowsContainer"></div>
         <script src="page.js"></script>
+        </form>
     </body>
 </html>
