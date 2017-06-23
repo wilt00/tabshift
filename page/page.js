@@ -46,17 +46,17 @@ function createWindowDiv(windowId) {
   return newWindow;
 }
 
+// Question: Is this more efficient than using anonymous function at item creation time?
+function itemClicked(event) {
+  event.currentTarget.classList.toggle("tabItemSelected");
+}
+
 function generateListItem(tab, parent) {
   var item = document.createElement("div");
   item.id = "item-" + tab.id;
   item.classList.add("tabItem");
-
-  var checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.id = "checkbox-" + tab.id;
-  checkbox.classList.add("tabCheckbox");
-  checkbox.name = tab.id;
-  item.appendChild(checkbox);
+  item.onclick = itemClicked;
+  item.dataset.tabId = tab.id;
 
   var img = document.createElement("img");
   img.src = tab.favIconUrl;
@@ -85,14 +85,12 @@ function addTabs(tabs) {
   }
 }
 
-function moveTab(box, targetId) {
-  console.log("Moving tab: " + box.name);
-  if (box.checked) {
-    return browser.tabs.move(parseInt(box.name), {
-      windowId: targetId,
-      index: -1
-    });
-  }
+function moveTab(item, targetId) {
+  console.log("Moving tab: " + item.dataset.tabId);
+  return browser.tabs.move(parseInt(item.dataset.tabId), {
+    windowId: targetId,
+    index: -1
+  });
 }
 
 async function moveSelectedTabs() {
@@ -108,16 +106,13 @@ async function moveSelectedTabs() {
     targetId = parseInt(targetId);
   }
 
-  // Get checked boxes
-  const checkedBoxes = document.querySelectorAll(
-    "input[type=checkbox]:checked"
-  );
-  // checkedBoxes is an htmlcollection, not an array
+  const selectedItems = document.getElementsByClassName("tabItemSelected");
+  // selectedItems is an htmlcollection, not an array
   // Via https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
-  const checkedBoxesArr = Array.from(checkedBoxes);
+  const selectedItemsArr = Array.from(selectedItems);
 
   // Shoutout to https://gist.github.com/yesvods/01fbeeb39de2c9d16a0a
-  let moves = checkedBoxesArr.map(box => moveTab(box, targetId));
+  let moves = selectedItemsArr.map(item => moveTab(item, targetId));
   let results = await Promise.all(moves);
 
   console.log("After results");
