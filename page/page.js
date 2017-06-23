@@ -16,7 +16,7 @@ function onError(error) {
 // If this div doesn't exist, creates it and appends it to "windowsContainer"
 // Parent div Id is of the form "window-[window Id]"
 function getParent(tab) {
-  var parent = document.getElementById("window-" + tab.windowId);
+  let parent = document.getElementById("window-" + tab.windowId);
   if (parent === null) {
     parent = createWindowDiv(tab.windowId);
   }
@@ -24,19 +24,19 @@ function getParent(tab) {
 }
 
 function createWindowDiv(windowId) {
-  var newWindow = document.createElement("div");
+  const newWindow = document.createElement("div");
   newWindow.id = "window-" + windowId;
   newWindow.classList.add("window");
   document.getElementById("windowsContainer").appendChild(newWindow);
 
-  var title = document.createElement("div");
+  const title = document.createElement("div");
   title.classList.add("windowTitle");
-  var titleText = document.createElement("h2");
+  const titleText = document.createElement("h2");
   titleText.textContent = "Window " + windowNumber;
   title.appendChild(titleText);
   newWindow.appendChild(title);
 
-  var windowOpt = document.createElement("option");
+  const windowOpt = document.createElement("option");
   windowOpt.value = windowId;
   windowOpt.innerText = "Window " + windowNumber;
   document.getElementById("windowPicker").appendChild(windowOpt);
@@ -52,13 +52,13 @@ function itemClicked(event) {
 }
 
 function generateListItem(tab, parent) {
-  var item = document.createElement("div");
+  const item = document.createElement("div");
   item.id = "item-" + tab.id;
   item.classList.add("tabItem");
   item.onclick = itemClicked;
   item.dataset.tabId = tab.id;
 
-  var img = document.createElement("img");
+  const img = document.createElement("img");
   img.src = tab.favIconUrl;
   if (img.src.endsWith("undefined")) {
     // TODO: Replace temp art
@@ -70,7 +70,7 @@ function generateListItem(tab, parent) {
   img.classList.add("tabFavicon");
   item.appendChild(img);
 
-  var itemText = document.createElement("span");
+  const itemText = document.createElement("span");
   itemText.classList.add("itemText");
   itemText.textContent = tab.title;
   item.appendChild(itemText);
@@ -80,8 +80,7 @@ function generateListItem(tab, parent) {
 
 function addTabs(tabs) {
   for (let tab of tabs) {
-    var parent = getParent(tab);
-    generateListItem(tab, parent);
+    generateListItem(tab, getParent(tab));
   }
 }
 
@@ -112,8 +111,8 @@ async function moveSelectedTabs() {
   const selectedItemsArr = Array.from(selectedItems);
 
   // Shoutout to https://gist.github.com/yesvods/01fbeeb39de2c9d16a0a
-  let moves = selectedItemsArr.map(item => moveTab(item, targetId));
-  let results = await Promise.all(moves);
+  const moves = selectedItemsArr.map(item => moveTab(item, targetId));
+  await Promise.all(moves);
 
   console.log("After results");
 
@@ -121,7 +120,7 @@ async function moveSelectedTabs() {
 }
 
 function loadTabs() {
-  var currWindowTabs = browser.tabs.query({});
+  const currWindowTabs = browser.tabs.query({});
   currWindowTabs.then(addTabs, onError);
 
   document
