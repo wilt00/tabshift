@@ -1,11 +1,27 @@
+.topBtns {
+    font-size: 12pt;
+}
+
 .tabItem {
     display: flex;
     align-items: center;
-    padding: 10px;
-
+    padding: 5px;
+    border: gray;
+    border-width: 2px;
+    border-style: solid;
+    margin: 5px;
 }
 
-.windowsContainer {}
+.tabItemSelected {
+    background: lightblue;
+}
+
+.windowsContainer {
+    border-bottom: black;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    padding: 6px;
+}
 
 .window {}
 
@@ -18,7 +34,6 @@
 .tabCheckbox {
     margin-left: 10px;
     margin-right: 10px;
-
 }
 
 .tabFavicon {

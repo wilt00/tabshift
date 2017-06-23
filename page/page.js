@@ -112,6 +112,8 @@ async function moveSelectedTabs() {
   const checkedBoxes = document.querySelectorAll(
     "input[type=checkbox]:checked"
   );
+  // checkedBoxes is an htmlcollection, not an array
+  // Via https://stackoverflow.com/questions/222841/most-efficient-way-to-convert-an-htmlcollection-to-an-array
   const checkedBoxesArr = Array.from(checkedBoxes);
 
   // Shoutout to https://gist.github.com/yesvods/01fbeeb39de2c9d16a0a
